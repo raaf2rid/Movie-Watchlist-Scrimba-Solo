@@ -1,6 +1,6 @@
 *{
   box-sizing: border-box;
-  /* border: 1px solid red; */
+  border: 1px solid red;
 }
 
 html, body{
@@ -371,4 +371,13 @@ p, h4{
 
   .fa-circle-plus:hover, .fa-circle-minus:hover{
     transform: scale(1.2);
+  }
+
+  @media (max-width: 700px ){
+
+    .container{
+      max-width: 500px;  
+      min-width: 450px;
+    }
+
   }
