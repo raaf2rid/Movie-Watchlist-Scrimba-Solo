@@ -12,16 +12,17 @@ console.log(toWatch.length)
 
 
 function renderPage(data){
-  
-  moviesListWatchList.innerHTML = defaultMessage
-  
-  console.log(moviesListWatchList)
 
 
   if(data.length !== 0){
   
     renderMovies(data)
 
+  }
+  else{
+  moviesListWatchList.innerHTML = defaultMessage
+  
+  console.log(moviesListWatchList)
   }
 
 }
