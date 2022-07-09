@@ -211,7 +211,7 @@ main{
 }
 
 .movie-section{
-  display:flex;
+  display: flex;
   /* border: 1px solid red; */
   padding: 2em;
   font-size: 0.8rem;
@@ -378,6 +378,33 @@ p, h4{
     .container{
       max-width: 500px;  
       min-width: 450px;
+    }
+
+    .movie-section{
+      position: relative;  
+      display: flex;
+    }
+
+    .info-flex{
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .info-flex > .rating{
+
+    align-self: flex-start;
+    margin-left: 0;
+    margin-top: 5px;
+
+    }
+    .poster{
+      height: 88%;
+    }
+
+    .info-flex  > .genre{
+      margin-left: 0;
+      margin: 1em 0;
     }
 
   }
