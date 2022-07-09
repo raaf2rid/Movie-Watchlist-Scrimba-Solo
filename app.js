@@ -233,6 +233,12 @@ function changePage(){
 
     previousBtn.classList.add("hideItem")
 
+    if (totalPages === 1){
+
+      nextBtn.classList.add("hideItem")
+
+    }
+
 
     previousBtn.addEventListener("click", () => {
       if (page === 2) {
