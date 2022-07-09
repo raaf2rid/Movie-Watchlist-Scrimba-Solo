@@ -75,6 +75,13 @@ function getMovies(movieId){
     throw Error("An error Occured");
   }
 
+  else if(!searchValue.value){
+
+    alert("Type a movie name!")
+
+    throw Error("An error Occured")
+  }
+
 }
 
 
@@ -241,16 +248,15 @@ function changePage(){
 
 
     previousBtn.addEventListener("click", () => {
-      if (page === 2) {
-        // previousBtn.innerHTML = ''
-        previousBtn.classList.add("hideItem")
-      }
+
+
       page--;
 
       moviesList.innerHTML = "";
       pageCount.innerHTML = "";
-      // previousBtn.classList.remove("hideItem")
-      nextBtn.classList.remove("hideItem")
+      currentPage.textContent = ""
+      nextBtn.classList.add("hideItem")
+      previousBtn.classList.add("hideItem")
 
 
       previousPage = page;
@@ -265,11 +271,24 @@ function changePage(){
 
         imdbInfo(imdbData)
 
+        nextBtn.classList.remove("hideItem")
+        
+        currentPage.textContent = " " + page + " ";
+
+        if (page === 1) {
+          previousBtn.classList.add("hideItem")
+        }
+        else{
+          previousBtn.classList.remove("hideItem")
+        }
+  
+
       });
 
     })
-  
-        currentPage.textContent = " " + page + " ";
+
+    
+
   
       
     });
@@ -278,7 +297,10 @@ function changePage(){
 
       moviesList.innerHTML = "";
       pageCount.innerHTML = "";
-      previousBtn.classList.remove("hideItem")
+      currentPage.textContent = ""
+      nextBtn.classList.add("hideItem")
+      previousBtn.classList.add("hideItem")
+
 
       if(page === totalPages - 1){
         nextBtn.classList.add("hideItem")
@@ -298,14 +320,19 @@ function changePage(){
 
         imdbInfo(imdbData)
 
+        nextBtn.classList.remove("hideItem")
+        previousBtn.classList.remove("hideItem")
 
+
+        currentPage.textContent = " " + page + " ";
 
       });
 
+      
+
     })
 
-  
-    currentPage.textContent = " " + page + " ";
+
     
 
 
@@ -329,6 +356,8 @@ searchBtn.addEventListener("click", () => {
   pageShift.innerHTML = "";
 
   searchMovie = searchValue.value.split(" ").join("+");
+
+  
 
   getMovie(searchMovie, 1)
     .then((imdb) => {
