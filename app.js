@@ -3,10 +3,19 @@ const searchBtn = document.getElementById("search-btn");
 const moviesList = document.getElementById("movie-list");
 const pageCount = document.getElementById("page-count");
 const pageShift = document.getElementById("page-shift");
+const movieSectionDefault = document.getElementById("movie-section-default")
+const spanSearch = document.getElementById("span-search")
+
 
 // localStorage.clear()
 
-
+const loader = 
+`<div
+id="movie-section-default" class="movie-section-default">
+  <div class="default">
+     <div class="lds-dual-ring "></div>
+ </div>
+</div>`
 
 let totalPages = 0;
 
@@ -41,6 +50,7 @@ async function getMovieInfo(fetchMovieData) {
     const response = await fetch(
       `https://www.omdbapi.com/?apikey=${apiKey}&i=${fetchMovieData[i].imdbID}`
     );
+
     const movies = await response.json();
 
     moviesArray.push(movies);
@@ -76,8 +86,6 @@ function getMovies(movieId){
   }
 
   else if(!searchValue.value){
-
-    alert("Type a movie name!")
 
     throw Error("An error Occured")
   }
@@ -116,17 +124,15 @@ function imdbInfo(movieInfo){
 
       }
 
-
-
     }
 
   }
   
-
     }
 
 
   for (let i = 0; i < movieInfo.length; i++) {
+
 
 
     let moviePoster = movieInfo[i].Poster;
@@ -251,8 +257,8 @@ function changePage(){
 
 
       page--;
-
-      moviesList.innerHTML = "";
+      
+      moviesList.innerHTML = loader;
       pageCount.innerHTML = "";
       currentPage.textContent = ""
       nextBtn.classList.add("hideItem")
@@ -268,6 +274,8 @@ function changePage(){
       totalPages = Math.floor(imdb.totalResults / 10 + 1);
 
       getMovieInfo(imdb.Search).then((imdbData) => {
+
+        moviesList.innerHTML = "";
 
         imdbInfo(imdbData)
 
@@ -295,7 +303,8 @@ function changePage(){
   
     nextBtn.addEventListener("click", () => {
 
-      moviesList.innerHTML = "";
+      
+      moviesList.innerHTML = loader;
       pageCount.innerHTML = "";
       currentPage.textContent = ""
       nextBtn.classList.add("hideItem")
@@ -317,6 +326,8 @@ function changePage(){
       totalPages = Math.floor(imdb.totalResults / 10 + 1);
 
       getMovieInfo(imdb.Search).then((imdbData) => {
+
+        moviesList.innerHTML = "";
 
         imdbInfo(imdbData)
 
@@ -347,26 +358,67 @@ function changePage(){
 
 // Show fetched data
 
-searchBtn.addEventListener("click", () => {
+searchBtn.addEventListener("click", findYourFilm);
 
+searchValue.addEventListener("keypress",function(event){
+  if(event.key === "Enter"){
+
+    event.preventDefault()
+    findYourFilm()
+
+  }
+})
+
+
+function findYourFilm(){
   page = 1
 
-  moviesList.innerHTML = "";
   pageCount.innerHTML = "";
   pageShift.innerHTML = "";
 
+
   searchMovie = searchValue.value.split(" ").join("+");
+
+  
+
+  if(!searchValue.value){
+    moviesList.innerHTML = 
+    `<div
+    id="movie-section-default" class="movie-section-default">
+      <div class="default">
+        <img src="Icon.png" alt="" class="icon-movie">
+        <p class="movie-p">Start Exploring</p>
+     </div>
+    </div>`
+
+    spanSearch.classList.add("show-tooltip")
+
+  }
+
+  else{
+
+    moviesList.innerHTML = loader;
+    spanSearch.classList.remove("show-tooltip")
+
+  }
+
 
   
 
   getMovie(searchMovie, 1)
     .then((imdb) => {
 
+      // movieSectionDefault.innerHTML = loader
+
       getMovies(imdb)
+
 
       totalPages = Math.floor(imdb.totalResults / 10 + 1);
 
       getMovieInfo(imdb.Search).then((imdbData) => {
+
+         moviesList.innerHTML = "";
+
 
         imdbInfo(imdbData)
 
@@ -381,6 +433,6 @@ searchBtn.addEventListener("click", () => {
       console.log(err);
       // Find out the error
     });
-});
+}
 
 ///////////////////////////////////////////////////////////////////

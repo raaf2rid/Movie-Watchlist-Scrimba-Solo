@@ -8,7 +8,6 @@ const defaultMessage =
   <a href="index.html" class="add-movies-btn"><i class="fa-solid fa-circle-plus"></i><span>Let's add some movies!</span></a>
   </div>`
 
-console.log(toWatch.length)
 
 
 function renderPage(data){
@@ -21,8 +20,6 @@ function renderPage(data){
   }
   else{
   moviesListWatchList.innerHTML = defaultMessage
-  
-  console.log(moviesListWatchList)
   }
 
 }

@@ -82,7 +82,7 @@ main{
 .header-a{
   align-self: center;
   font-weight: 700;
-  color: #26a289;
+  color: #ffffff;
   cursor: pointer;
   text-decoration: none;
   opacity: 0.8;
@@ -91,6 +91,7 @@ main{
 
 .header-a:hover{
   transform: scale(1.1);
+  color: #26a289;
 }
 
 .header-a:active{
@@ -99,7 +100,6 @@ main{
 
 .header-h1{
   position: relative;
-  text-shadow: 0px 0px 5px #fff6f6bf;
 }
 
 /* .header-h1:before {
@@ -169,20 +169,20 @@ main{
   background-repeat: no-repeat;
   background-position: 3% 50%;
   font-family: 'Montserrat', sans-serif;
-  color: rgb(215, 205, 205);
+  color: #d7cdcd;
 }
 
 .btn{
   grid-area: search-btn;
   cursor: pointer;
-  background: #26a289;
+  background: #1a6151;
   border: none;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   font-family: 'Montserrat', sans-serif;
-  color: rgb(215, 205, 205);
+  color: #ffffff;
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 600;
   opacity: 0.8;
   transition: 500ms;
 }
@@ -407,4 +407,69 @@ p, h4{
       margin: 1em 0;
     }
 
+  }
+
+
+  /* ///////////Loader////////////// */
+
+
+  .lds-dual-ring {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+  }
+  .lds-dual-ring:after {
+    content: "";
+    display: block;
+    width: 64px;
+    height: 64px;
+    margin: 8px;
+    border-radius: 50%;
+    border: 6px solid #26a289;
+    border-color: #26a289 transparent #26a289 transparent;
+    animation: lds-dual-ring 1.2s linear infinite;
+  }
+  @keyframes lds-dual-ring {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+
+
+  .tooltip {
+    position: relative;
+  }
+  
+    .tooltiptext {
+    visibility: hidden;
+    width: 200px;
+    background-color: #555;
+    color: rgb(213, 210, 210);
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+  }
+  
+    .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+  }
+
+  .show-tooltip{
+    visibility: visible;
   }
