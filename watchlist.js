@@ -1,49 +1,34 @@
 const moviesListWatchList = document.getElementById("movie-list-watchlist");
 
-let toWatch = JSON.parse(localStorage.getItem("previousData"))
+let toWatch = JSON.parse(localStorage.getItem("previousData"));
 
-const defaultMessage = 
-`<div class="movie-list-watchlist-default">
+const defaultMessage = `<div class="movie-list-watchlist-default">
   <p>Your watchlist is looking a little empty...</p>
   <a href="index.html" class="add-movies-btn"><i class="fa-solid fa-circle-plus"></i><span>Let's add some movies!</span></a>
-  </div>`
+  </div>`;
 
-
-
-function renderPage(data){
-
-
-  if(data.length !== 0){
-  
-    renderMovies(data)
-
+function renderPage(data) {
+  if (data.length !== 0) {
+    renderMovies(data);
+  } else {
+    moviesListWatchList.innerHTML = defaultMessage;
   }
-  else{
-  moviesListWatchList.innerHTML = defaultMessage
-  }
-
 }
 // localStorage.clear()
 
-renderPage(toWatch)
+renderPage(toWatch);
 
+function renderMovies(moviesArray) {
+  let listMovies = "";
 
-
-function renderMovies(moviesArray){
-
-   let listMovies = ''
-  
-    for(let i = 0; i < moviesArray.length; i++){
-    
-  
+  for (let i = 0; i < moviesArray.length; i++) {
     let moviePoster = moviesArray[i].poster;
-    
+
     if (moviesArray[i].poster === "N/A") {
       moviePoster = `https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80`;
     }
 
-  
-     listMovies += `
+    listMovies += `
      
         <div class="movie-section">
     
@@ -53,9 +38,7 @@ function renderMovies(moviesArray){
     
           <div class="info-flex title-rating">
             <h4 class="title">${moviesArray[i].title}</h4>
-            <p class="rating"><img src="star.png" alt="" class="rating-icon">${
-              moviesArray[i].rating
-            }</p>
+            <p class="rating"><img src="star.png" alt="" class="rating-icon">${moviesArray[i].rating}</p>
           </div>
           
           <div class="info-flex">
@@ -70,56 +53,33 @@ function renderMovies(moviesArray){
     
     
         </div>`;
-    
-          }
+  }
 
-        moviesListWatchList.innerHTML = listMovies
+  moviesListWatchList.innerHTML = listMovies;
 
-        const removeMovie = document.querySelectorAll('.watchlist')
+  const removeMovie = document.querySelectorAll(".watchlist");
 
-        for(let i = 0; i < removeMovie.length; i++){
+  for (let i = 0; i < removeMovie.length; i++) {
+    removeMovie[i].addEventListener("click", () => {
+      let updatedList = [];
 
-          removeMovie[i].addEventListener("click", ()=>{
-
-
-            let updatedList = []
-
-            function deleteItem(data){
-
-          
-
-              if(data !== toWatch[i]){
-
-                updatedList.push(data)
-              }
-
-            
-
-
-            }
-
-
-            toWatch.filter(deleteItem)
-
-            localStorage.setItem("previousData", JSON.stringify(updatedList))
-
-            toWatch = JSON.parse(localStorage.getItem("previousData"))
-
-            renderMovies(toWatch)
-
-            if(toWatch.length === 0){
-
-              moviesListWatchList.innerHTML = defaultMessage
-
-
-            }
-        
-
-          })
-
-
-
+      function deleteItem(data) {
+        if (data !== toWatch[i]) {
+          updatedList.push(data);
         }
+      }
 
-  
-        }
+      toWatch.filter(deleteItem);
+
+      localStorage.setItem("previousData", JSON.stringify(updatedList));
+
+      toWatch = JSON.parse(localStorage.getItem("previousData"));
+
+      renderMovies(toWatch);
+
+      if (toWatch.length === 0) {
+        moviesListWatchList.innerHTML = defaultMessage;
+      }
+    });
+  }
+}
